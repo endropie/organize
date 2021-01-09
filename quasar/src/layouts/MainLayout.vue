@@ -13,8 +13,10 @@
         />
 
         <q-toolbar-title v-if="$q.screen.gt.sm" shrink class="row items-center no-wrap">
-          <img src="https://cdn.quasar.dev/img/layout-gallery/logo-google.svg">
-          <span class="q-ml-sm">Photos</span>
+          <!-- <img src="https://cdn.quasar.dev/img/layout-gallery/logo-google.svg"> -->
+          <!-- <span class="q-ml-sm">Photos</span> -->
+          <q-img src="~assets/stamp-ik2t.png" width="100px" height="25px" />
+          <span class="q-ml-sm text-red text-weight-bold">KP TANJUANG</span>
         </q-toolbar-title>
 
         <q-space />
@@ -73,123 +75,34 @@
       @click="leftDrawerOpen = false"
     >
       <q-scroll-area class="fit">
-        <q-toolbar class="GPL__toolbar">
+        <q-toolbar class="GPL__toolbar" style="position: sticky;top: 0;z-index:10" :class="{'bg-grey-10': $q.dark.isActive, 'bg-white': !$q.dark.isActive}">
           <q-toolbar-title class="row items-center text-grey-8">
-            <img class="q-pl-md" src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg">
-            <span class="q-ml-sm">Photos</span>
+            <!-- <img src="https://cdn.quasar.dev/img/layout-gallery/logo-google.svg"> -->
+            <q-img class="q-ml-sm" src="~assets/stamp-ik2t.png" width="100px" height="25px" />
+            <span class="q-ml-sm text-red text-weight-bolder">KP TANJUANG</span>
           </q-toolbar-title>
         </q-toolbar>
-
-        <q-list padding>
-          <q-item v-for="link in links1" :key="link.text" clickable class="GPL__drawer-item">
-            <q-item-section avatar>
-              <q-icon :name="link.icon" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ link.text }}</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-separator class="q-my-md" />
-
-          <q-item v-for="link in links2" :key="link.text" clickable class="GPL__drawer-item">
-            <q-item-section avatar>
-              <q-icon :name="link.icon" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ link.text }}</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-separator class="q-my-md" />
-
-          <q-item v-for="link in links3" :key="link.text" clickable class="GPL__drawer-item">
-            <q-item-section avatar>
-              <q-icon :name="link.icon" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ link.text }}</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-separator class="q-my-md" />
-
-          <q-item clickable class="GPL__drawer-item GPL__drawer-item--storage">
-            <q-item-section avatar>
-              <q-icon name="cloud" />
-            </q-item-section>
-            <q-item-section top>
-              <q-item-label>Storage</q-item-label>
-              <q-linear-progress :value="storage" class="q-my-sm" />
-              <q-item-label caption>2.6 GB of 15 GB</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
+        <q-separator />
+        <menu-list></menu-list>
       </q-scroll-area>
     </q-drawer>
 
     <q-page-container class="GPL__page-container">
       <router-view />
-
-      <q-page-sticky v-if="$q.screen.gt.sm" expand position="left">
-        <div class="fit q-pt-xl q-px-sm column">
-          <q-btn round flat color="grey-8" stack no-caps size="26px" class="GPL__side-btn">
-            <q-icon size="22px" name="photo" />
-            <div class="GPL__side-btn__label">Photos</div>
-          </q-btn>
-
-          <q-btn round flat color="grey-8" stack no-caps size="26px" class="GPL__side-btn">
-            <q-icon size="22px" name="collections_bookmark" />
-            <div class="GPL__side-btn__label">Albums</div>
-          </q-btn>
-
-          <q-btn round flat color="grey-8" stack no-caps size="26px" class="GPL__side-btn">
-            <q-icon size="22px" name="assistant" />
-            <div class="GPL__side-btn__label">Assistant</div>
-            <q-badge floating color="red" text-color="white" style="top: 8px; right: 16px">
-              1
-            </q-badge>
-          </q-btn>
-
-          <q-btn round flat color="grey-8" stack no-caps size="26px" class="GPL__side-btn">
-            <q-icon size="22px" name="group" />
-            <div class="GPL__side-btn__label">Sharing</div>
-          </q-btn>
-
-          <q-btn round flat color="grey-8" stack no-caps size="26px" class="GPL__side-btn">
-            <q-icon size="22px" name="import_contacts" />
-            <div class="GPL__side-btn__label">Photo books</div>
-          </q-btn>
-        </div>
-      </q-page-sticky>
+      <menu-sticky />
     </q-page-container>
   </q-layout>
 </template>
-
 <script>
+import MenuList from 'src/components/MenuList'
+import MenuSticky from 'src/components/MenuSticky'
 export default {
-  name: 'GooglePhotosLayout',
+  name: 'MainLayout',
+  components: { MenuList, MenuSticky },
   data () {
     return {
       leftDrawerOpen: false,
       search: '',
-      storage: 0.26,
-      links1: [
-        { icon: 'photo', text: 'Photos' },
-        { icon: 'photo_album', text: 'Albums' },
-        { icon: 'assistant', text: 'Assistant' },
-        { icon: 'people', text: 'Sharing' },
-        { icon: 'book', text: 'Photo books' }
-      ],
-      links2: [
-        { icon: 'archive', text: 'Archive' },
-        { icon: 'delete', text: 'Trash' }
-      ],
-      links3: [
-        { icon: 'settings', text: 'Settings' },
-        { icon: 'help', text: 'Help & Feedback' },
-        { icon: 'get_app', text: 'App Downloads' }
-      ],
       createMenu: [
         { icon: 'photo_album', text: 'Album' },
         { icon: 'people', text: 'Shared Album' },
