@@ -1,0 +1,7 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/resources/views/admin.blade.php": "/resources/views/admin.blade.php",
+    "/admin/favicon.ico": "/admin/favicon.ico",
+    "/admin/index.html": "/admin/index.html"
+}
