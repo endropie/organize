@@ -21,6 +21,15 @@ Route::middleware([])->get('/auth/generate-token', function () {
 });
 
 $middleauth = request()->header('X-CSRF-TOKEN') ? 'auth' : 'auth:sanctum';
+// $middleauth = '';
+
 Route::middleware([$middleauth])->get('/auth/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => $middleauth, 'namespace' => 'App\Http\Controllers\Api'], function () {
+    Route::apiResource('regions', 'RegionController');
+    Route::apiResource('members', 'MemberController');
+    Route::apiResource('premiums', 'PremiumController');
+});
+
