@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware([])->get('/auth/generate-token', function () {
+    $user = \App\Models\User::first();
+    $token = $user->createToken('token-tester');
+    return ['token' => $token->plainTextToken];
+});
+
+$middleauth = request()->header('X-CSRF-TOKEN') ? 'auth' : 'auth:sanctum';
+Route::middleware([$middleauth])->get('/auth/user', function (Request $request) {
     return $request->user();
 });
