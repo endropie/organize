@@ -17,6 +17,4 @@ mix
         require('postcss-import'),
         require('tailwindcss'),
         require('autoprefixer'),
-    ])
-    .copy('quasar/dist/spa/index.html', 'resources/views/admin.blade.php')
-    .copyDirectory('quasar/dist/spa', 'public/admin');
+    ]);
