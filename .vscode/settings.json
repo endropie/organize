@@ -1,0 +1,6 @@
+{
+    "editor.tabSize": 2,
+    "editor.detectIndentation": true,
+    "prettier.tabWidth": 4,
+    "prettier.useTabs": true  // This made it finally work for me
+}
