@@ -100,8 +100,8 @@ class MemberRegister extends Component
             'record.gender' => 'required',
             'record.birth_place' => 'required',
             'record.birth_date' => 'required',
-            'record.contact' => ($this->additional ? '' : 'required'),
-            'record.contact_code' => ($this->additional ? '' : 'required'),
+            'record.contact' => "unique:App\Models\Member,contact" . ($this->additional ? '' : 'required'),
+            'record.contact_code' => ($this->additional ? '' : '|required'),
             'record.relate' => 'required',
             'photo_member' => 'required',
             'photo_premium' => ($this->additional ? '' : 'required'),
@@ -137,7 +137,7 @@ class MemberRegister extends Component
 
         DB::commit();
 
-        redirect()->route('members.premium', ['id' => $premium->id]);
+        redirect()->route('members.premium', ['premium' => $premium->id]);
     }
 
     public function saveImage($image, $path = 'public/register', $name)

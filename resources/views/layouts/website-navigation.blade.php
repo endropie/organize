@@ -3,9 +3,7 @@
 <div class="sticky top-0 z-20"
     x-data="{
         usermenu: false,
-        mainmenu: false,
-        routename: '{{ request()->route()->getName() }}',
-        routeprefix: '{{ request()->route()->getPrefix() }}',
+        mainmenu: false
     }"
 >
     <nav class="bg-gray-800">
@@ -15,32 +13,24 @@
                     <div class="flex-shrink-0">
                         <img class="w-8 h-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
                     </div>
+                    {{-- WEB MENUS --}}
                     <div class="hidden md:block">
                         <div class="flex items-baseline ml-10 space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            {{-- [{{request()->route()->getName()}}] --}}
-                            <a href="/"
-                                x-bind:class="{ 'bg-red-900 text-white': routename === 'welcome' }"
-                                class="px-3 py-2 text-sm font-medium text-gray-100 rounded-md"
-                                >I K 2 T</a>
-
-                            <a href="{{route('members.index')}}"
-                                x-bind:class="{ 'bg-red-900 text-white': routeprefix === '/members' }"
-                                class="px-3 py-2 text-sm font-medium text-gray-300 uppercase rounded-md hover:bg-red-900 hover:text-white"
-                            >Anggota</a>
-
-                            <a href="#"
-                                x-bind:class="{ 'bg-red-900 text-white': routeprefix === '/#' }"
-                                class="px-3 py-2 text-sm font-medium text-gray-300 uppercase rounded-md hover:bg-red-900 hover:text-white"
-                            >Alek</a>
-
-                            <a href="#"
-                                x-bind:class="{ 'bg-red-900 text-white': routeprefix === '/#' }"
-                                class="px-3 py-2 text-sm font-medium text-gray-300 uppercase rounded-md hover:bg-red-900 hover:text-white"
-                            >Calender</a>
+                            @foreach($menus as  $menu)
+                            @if (!$menu['hidden'])
+                            <a
+                                @if($menu['link']) href="{{$menu['link']}}" @endif
+                                x-bind:class="{ 'bg-gray-900 text-white': {{($menu["visited"] ?? null) ? "true" : "false"}} }"
+                                class="px-3 py-2 text-sm font-medium text-gray-100 rounded-md">
+                                {{ strtoupper($menu['name']) }}
+                            </a>
+                            @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
+                {{-- SHARE --}}
                 <div class="flex items-baseline px-4 space-x-4">
                     <a class="block text-base font-medium text-white rounded-md hover:text-blue-400"  data-tippy-content="@twitter_handle" href="https://twitter.com/intent/tweet?url=#">
                         <svg class="h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -57,22 +47,22 @@
                 @auth
                 <div class="hidden md:block">
                     <div class="flex items-center ml-4 md:ml-6">
-                    <button class="p-1 text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    {{-- <button class="p-1 text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span class="sr-only">View notifications</span>
                         <!-- Heroicon name: bell -->
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
-                    </button>
+                    </button> --}}
 
                     <!-- Profile dropdown -->
                     <div class="relative ml-3">
                         <div>
-                        <button class="flex items-center max-w-xs text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu" aria-haspopup="true"
+                        <button class="flex items-center max-w-xs text-sm bg-gray-800 rounded-full focus:outline-none ring-2 ring-offset-2 ring-offset-gray-800 ring-white" id="user-menu" aria-haspopup="true"
                             x-on:click="usermenu = !usermenu"
                         >
                             <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->avatar }}" alt="">
                         </button>
                         </div>
                         <div x-show="usermenu" style="display:none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu"
@@ -88,11 +78,31 @@
 
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
 
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+                                href="{{route('logout')}}"
+                                onclick="event.preventDefault(); this.closest('form').submit();"
+                            >
+                                {{ __('Logout') }}
+                            </a>
+                        </form>
                         </div>
                     </div>
                     </div>
                 </div>
+                @else
+                <a class="block p-1 text-base font-medium text-white border-2 border-white rounded-md outline-none hover:border-gray-900 hover:text-gray-900" href="{{route('login')}}">
+
+                    <svg class="h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    {{-- <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                    </svg> --}}
+                </a>
                 @endauth
                 <div class="flex -mr-2 md:hidden">
                     <!-- Mobile menu button -->
@@ -124,44 +134,63 @@
         >
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="#" class="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md">I K 2 T</a>
+                @foreach($menus as  $menu)
+                @if (!($menu['hidden'] ?: null))
 
-                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Anggota</a>
+                <a
+                    href="#"
+                    @if($menu["visited"] ?? null)
+                    class="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md"
+                    @else
+                    class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                    @endif
+                    >
+                    {{ $menu['name'] }}
 
-                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Baralek</a>
-
-                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Calender</a>
+                </a>
+                @endif
+                @endforeach
             </div>
-            @auth
+
             <div class="pt-4 pb-3 border-t border-gray-700">
-
-            <div class="flex items-center px-5">
-                <div class="flex-shrink-0">
-                    <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                @auth
+                <div class="flex items-center px-5">
+                    <div class="flex-shrink-0">
+                        <img class="w-10 h-10 rounded-full" src="{{ Auth::user()->avatar }}" alt="">
+                    </div>
+                    <div class="ml-3">
+                        <div class="text-base font-medium leading-none text-white">{{ Auth::user()->name }}</div>
+                        <div class="text-sm font-medium leading-none text-gray-400">{{ Auth::user()->email }}</div>
+                    </div>
+                    <button class="flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span class="sr-only">View notifications</span>
+                        <!-- Heroicon name: bell -->
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                    </button>
                 </div>
-                <div class="ml-3">
-                    <div class="text-base font-medium leading-none text-white">Tom Cook</div>
-                    <div class="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                <div class="px-2 mt-3 space-y-1">
+                    <a href="#" class="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:text-white hover:bg-gray-700">Your Profile</a>
+
+                    <a href="#" class="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:text-white hover:bg-gray-700">Settings</a>
+
+                    <a href="#" class="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:text-white hover:bg-gray-700">Sign out</a>
                 </div>
-                <button class="flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                    <span class="sr-only">View notifications</span>
-                    <!-- Heroicon name: bell -->
-                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                    </svg>
-                </button>
+                @else
+
+                <div class="flex items-center px-5">
+                    <button class="flex flex-row flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <!-- Heroicon name: login -->
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            {{-- <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /> --}}
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        <span class="pl-2">Login</span>
+                    </button>
+                </div>
+                @endauth
             </div>
-            <div class="px-2 mt-3 space-y-1">
-                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:text-white hover:bg-gray-700">Your Profile</a>
-
-                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:text-white hover:bg-gray-700">Settings</a>
-
-                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:text-white hover:bg-gray-700">Sign out</a>
-            </div>
-            </div>
-
-
-            @endauth
         </div>
     </nav>
 

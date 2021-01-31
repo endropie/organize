@@ -26,9 +26,8 @@ class Members extends Controller
         return view('members.show', ['member' => $member]);
     }
 
-    public function premium ($id)
+    public function premium (Premium $premium)
     {
-        $premium = Premium::findOrFail($id);
         return view('members.premium', ['premium' => $premium]);
     }
 }

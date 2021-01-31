@@ -11,48 +11,82 @@
                     {{$premium->region->name}}
                 </p>
             </div>
-            <div class="self-center flex-none">
-                @if ($premium->unverified)
-                <span class="inline-flex px-4 py-2 text-sm font-semibold leading-5 text-yellow-800 bg-yellow-100 rounded-2">
-                    Menunggu ({{$premium->unverified}}) verifikasi
-                </span>
-                @else
-                <span class="inline-flex px-4 py-2 text-sm font-semibold leading-5 text-green-800 bg-green-100 rounded-2">
-                    Terverikasi
-                </span>
-                @endif
+            <div class="self-center flex-none mt-1">
+                <livewire:premium-verified :premium="$premium" />
             </div>
         </div>
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 sm:divide-none">
                             <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                Nama
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                Kontak
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                Kelamin
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                Anggota
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                Status
-                                </th>
-                                <th scope="col" class="relative px-6 py-3">
-                                {{-- <span class="sr-only">Edit</span> --}}
-                                </th>
-                            </tr>
+                                <tr class="hidden sm:table-row">
+                                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                    Nama
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                    Kontak
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                    Kelamin
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                    Keanggotaan
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">
+                                    Status
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($premium->members as $member)
-                                <tr member-id="{{$member->id}}">
+                                <tr member-id="{{$member->id}}" class="table-row border-none sm:hidden"
+                                    onclick="window.location.href ='{{ route('members.premium', ['premium' => $member->premium->id]) }}' "
+                                >
+                                    <td colspan="100%" style="border: none">
+                                        <div class="my-1 border-gray-200 rounded shadow-md">
+                                            <dl>
+                                                <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                    <dt class="flex flex-row text-sm font-medium text-gray-900">
+                                                        NIK
+                                                    </dt>
+                                                    <dd class="-mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                        {{$member->number_view}}
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Nama Lengkap
+                                                    </dt>
+                                                    <dd class="-mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                        {{$member->name}} ({{$member->age}})
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Kontak
+                                                    </dt>
+                                                    <dd class="-mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                        {{$member->contact_view}}
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Keanggotaan
+                                                    </dt>
+                                                    <dd class="-mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                        {{$member->relate}}
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-1 text-center">
+                                                    <livewire:member-verified :member="$member" />
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr member-id="{{$member->id}}" class="hidden sm:table-row">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 hidden w-10 h-10 mr-4">
@@ -77,21 +111,9 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">{{$member->relate}}</div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-
-                                        @if ($premium->verified_at && $member->verified_at)
-                                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                            Active
-                                        </span>
-                                        @else
-                                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                            Non-Active
-                                        </span>
-                                        @endif
-
-                                    </td>
-                                    <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
                                         {{-- <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a> --}}
+                                        <livewire:member-verified :member="$member" />
                                     </td>
                                 </tr>
                                 @endforeach
@@ -99,7 +121,7 @@
                             <!-- More items... -->
                                 <tr>
                                     <td colspan="100%" class="px-6 py-4 whitespace-nowrap">
-                                        <a href="{{route('members.register')}}?premium={{$premium->id}}" class="w-full px-4 py-2 text-blue-100 bg-blue-700 rounded focus:outline-none focus:bg-blue-400 hover:bg-blue-400">
+                                        <a href="{{route('members.register')}}?premium={{$premium->id}}" class="w-full px-4 py-2 text-sm text-blue-100 bg-blue-700 rounded focus:outline-none focus:bg-blue-400 hover:bg-blue-400">
                                             Tambahkan Anggota
                                         </a>
                                     </td>

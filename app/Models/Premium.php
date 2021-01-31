@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Traits\Filterable;
+use App\Traits\HasCommentable;
+use App\Traits\HasKeyUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Premium extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, HasKeyUUID, Filterable, HasCommentable;
 
     protected $table = 'premiums';
 

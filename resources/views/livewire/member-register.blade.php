@@ -1,7 +1,7 @@
 <div class="flex items-center justify-center min-h-screen px-5 pt-16 pb-10 min-w-screen">
     <div class="w-full p-5 mx-auto text-gray-900 bg-gray-300 rounded-lg shadow-lg" style="max-width: 600px">
         <div class="w-full pt-1 pb-5">
-            <div class="flex items-center justify-center w-20 h-20 mx-auto -mt-16 overflow-hidden text-white bg-indigo-500 rounded-full shadow-lg">
+            <div class="flex items-center justify-center w-20 h-20 mx-auto -mt-16 overflow-hidden text-white bg-red-500 rounded-full shadow-lg">
                 <i class="text-3xl mdi mdi-credit-card-outline"></i>
             </div>
         </div>

@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Traits\Filterable;
+use App\Traits\HasKeyUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Region extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, Filterable, HasKeyUUID;
 
     public $timestamps = false;
 

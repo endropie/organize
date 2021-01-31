@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use App\Traits\Filterable;
+use App\Traits\HasCommentable;
+use App\Traits\HasKeyUUID;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Member extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, HasKeyUUID, Filterable, HasCommentable;
 
     static $RELATES = ['PUSAKO', 'SUMANDO', 'ANAK', 'PARTISIPATISAN'];
 

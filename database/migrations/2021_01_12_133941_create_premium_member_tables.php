@@ -10,10 +10,10 @@ class CreatePremiumMemberTables extends Migration
     public function up()
     {
         Schema::create('premiums', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('number')->unique();
             $table->decimal('cost')->default(0);
-            $table->foreignId('region_id');
+            $table->uuid('region_id');
             $table->string('capture_name')->nullable();
 
             $table->dateTime('verified_at')->nullable();
@@ -21,7 +21,7 @@ class CreatePremiumMemberTables extends Migration
         });
 
         Schema::create('members', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('number')->unique();
             $table->string('name');
             $table->enum('gender', ['MALE', 'FEMALE']);
@@ -31,7 +31,7 @@ class CreatePremiumMemberTables extends Migration
             $table->string('contact')->nullable();
             $table->text('address')->nullable();
             $table->enum('relate', ['PUSAKO', 'SUMANDO', 'ANAK', 'PARTISIPATISAN']);
-            $table->foreignId('premium_id');
+            $table->foreignUuid('premium_id');
             $table->string('capture_name')->nullable();
 
             $table->dateTime('verified_at')->nullable();
