@@ -37,16 +37,10 @@ class WebsiteLayout extends Component
                     "visited" => request()->route()->getPrefix() == "/events",
                 ],
                 [
-                    "name" => "Kalender",
-                    "link" => false,
-                    "hidden" => false,
-                    "visited" => request()->route()->getPrefix() == "/calenders",
-                ],
-                [
                     "name" => "Keuangan",
-                    "link" => false,
-                    "hidden" => !auth()->user(),
-                    "visited" => request()->route()->getPrefix() == "/calenders",
+                    "link" => route('finances.index'),
+                    "hidden" => false,
+                    "visited" => request()->route()->getPrefix() == "/finances",
                 ],
                 [
                     "name" => "ADMIN",

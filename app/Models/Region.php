@@ -13,7 +13,7 @@ class Region extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['code', 'name'];
 
     public function premiums ()
     {

@@ -29,7 +29,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         NIK
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-gray-900 text-md sm:mt-0 sm:col-span-2">
                         {{$member->number_view}}
                     </dd>
                 </div>
@@ -37,7 +37,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         No KK
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-gray-900 text-md sm:mt-0 sm:col-span-2">
                         {{$member->premium->number_view}}
                     </dd>
                 </div>
@@ -45,7 +45,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         Nama Lengkap
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-gray-900 text-md sm:mt-0 sm:col-span-2">
                         {{$member->name}}
                     </dd>
                 </div>
@@ -53,7 +53,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         Kelahiran
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-gray-900 text-md sm:mt-0 sm:col-span-2">
                         {{$member->birth_place}} {{$member->birth_date}}
                     </dd>
                 </div>
@@ -61,7 +61,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         Kelamin
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-gray-900 text-md sm:mt-0 sm:col-span-2">
                         {{$member->gender_view}}
                     </dd>
                 </div>
@@ -69,7 +69,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         Kontak
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-gray-900 text-md sm:mt-0 sm:col-span-2">
                         {{$member->contact_view}}
                     </dd>
                 </div>
@@ -77,7 +77,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         Alamat
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-gray-900 text-md sm:mt-0 sm:col-span-2">
                         <span style="white-space: pre-wrap">{{$member->address}}</span>
                     </dd>
                 </div>
@@ -85,7 +85,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         Regional
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-gray-900 text-md sm:mt-0 sm:col-span-2">
                         {{$member->premium->region->name}}
                     </dd>
                 </div>

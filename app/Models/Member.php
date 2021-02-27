@@ -17,6 +17,10 @@ class Member extends Model
 
     protected $fillable = ['number', 'name', 'gender', 'birth_place', 'birth_date', 'contact', 'contact_code', 'address', 'relate'];
 
+    protected $dates = [
+        'verified_at', 'created_at', 'updated_at'
+    ];
+
     public function premium ()
     {
         return $this->belongsTo(\App\Models\Premium::class);

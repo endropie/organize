@@ -22,7 +22,7 @@ class PremiumVerified extends Component
 
     public function setVerified()
     {
-        if (auth()->user() && auth()->user()->allowRegion('member-region', $this->premium->region))
+        if (auth()->user() && auth()->user()->allow('member-region', 'member-manager'))
         {
             \DB::beginTransaction();
 
@@ -37,14 +37,14 @@ class PremiumVerified extends Component
 
             $this->emit('member.verified.refresh');
 
-            $this->emit('webiste.notify', [
+            $this->emit('app.notify', [
                 "title" => "Verifikasi sukses",
                 "message" => $message,
                 "type" => "success"
             ]);
         }
         else {
-            $this->emit('webiste.notify', [
+            $this->emit('app.notify', [
                 "title" => "Verifikasi gagal",
                 "message" => "Tidak ada permission",
                 "type" => "success"

@@ -10,8 +10,7 @@ class Members extends Controller
 {
     public function index (Request $request)
     {
-        $limit = request('limit', 10);
-        $members = Member::latest()->paginate($limit);
+        $members = Member::latest()->paginate(request('limit', 10));
 
         return view('members.index', ['members' => $members]);
     }

@@ -11,11 +11,10 @@ class CreatePremiumMemberTables extends Migration
     {
         Schema::create('premiums', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('code')->unique();
             $table->string('number')->unique();
             $table->decimal('cost')->default(0);
             $table->uuid('region_id');
-            $table->string('capture_name')->nullable();
-
             $table->dateTime('verified_at')->nullable();
             $table->timestamps();
         });

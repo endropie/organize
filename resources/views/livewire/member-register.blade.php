@@ -13,7 +13,7 @@
             <div class="flex-grow">
                 <label class="mb-2 ml-1 text-sm font-bold">
                     No. KK
-                    @if($premium) <span class="text-green-700">[Registered]</span> @endif
+                    @if($premium) <span class="text-green-700">[Terdaftar]</span> @endif
                 </label>
                 <div>
                     <input wire:model="record.premium.number" wire:change="changedPremium"
@@ -177,40 +177,6 @@
             </div>
         </div>
 
-        @if(!$additional)
-        <div class="mb-3">
-            <label class="mb-2 ml-1 text-sm font-bold">Gambar KK</label>
-            @error('photo_premium')
-            <div class="ml-1 -mt-1 text-sm font-thin text-red-500">
-                {{$errors->first('photo_premium')}}
-            </div>
-            @enderror
-            <div onclick="document.getElementById('photo_premium').click()"
-                class="flex justify-center px-6 pt-5 pb-6 mt-2 border-2 border-gray-100 border-dashed rounded-md cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 focus-within:border-transparent" >
-
-                @if ($photo_premium)
-                <img src="{{$photo_premium->temporaryUrl()}}" class="cover" />
-                @endif
-
-                <div class="space-y-1 text-center" @if ($photo_premium) style="display: none" @endif>
-                    <svg class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <div class="flex text-sm text-gray-600">
-                        <label for="photo_premium" class="relative font-medium cursor-pointer focus-within:outline-none">
-                            <span>AMBIL GAMBAR KK</span>
-                            <input type="file" id="photo_premium" wire:model="photo_premium" class="sr-only" accept="image/*;capture=camera">
-                        </label>
-                        {{-- <p class="pl-1">or drag and drop</p> --}}
-                    </div>
-                    <p class="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB
-                    </p>
-                </div>
-            </div>
-        </div>
-        @endif
-
         <div class="mb-3">
             <label class="mb-2 ml-1 text-sm font-bold">Gambar KTP</label>
             @error('photo_member')
@@ -238,12 +204,6 @@
                     <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                 </div>
             </div>
-        </div>
-        <div class="">
-            <button
-                wire:click="setImage"
-                class="block w-full max-w-xs px-3 py-3 mx-auto font-semibold text-white bg-green-600 rounded-lg hover:bg-green-500 focus:bg-green-500 focus:outline-none"><i class="mr-1 mdi mdi-lock-outline"
-            ></i> SET IMAGE </button>
         </div>
 
         <div class="mb-10"></div>

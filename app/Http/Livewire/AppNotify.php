@@ -4,9 +4,9 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class Notify extends Component
+class AppNotify extends Component
 {
-    protected $listeners = ['webiste.notify' => 'setMessage', 'website.notify.clear' => 'setClear'];
+    protected $listeners = ['app.notify' => 'setMessage', 'app.notify.clear' => 'setClear'];
 
     public $notifies = [];
 
@@ -34,7 +34,7 @@ class Notify extends Component
             'type' => 'info'
         ], $notify);
 
-        $this->emitSelf('website.notify.clear', $index, intval($notify['limit'] ?? 2));
+        $this->emitSelf('app.notify.clear', $index, intval($notify['limit'] ?? 2));
     }
 
     public function setClear($index, $limit)
@@ -46,6 +46,6 @@ class Notify extends Component
 
     public function render()
     {
-        return view('livewire.notify');
+        return view('livewire.app-notify');
     }
 }

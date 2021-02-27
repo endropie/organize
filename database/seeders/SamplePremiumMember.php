@@ -24,12 +24,18 @@ class SamplePremiumMember extends Seeder
                 $premium = Premium::create([
                     "number"    => $prefix . str_pad($i, 3, "0", STR_PAD_LEFT),
                     "region_id" => Region::inRandomOrder()->first()->id,
+                    "cost"      => Premium::COSTS[rand(0,2)],
                 ]);
+
+                if (rand(0,9) > 3) {
+                    $premium->verified_at = now();
+                    $premium->save();
+                }
 
                 for ($m=1; $m <= rand(1, 10); $m++) {
                     $gender = rand(0,10) < 6 ? 'MALE' : "FEMALE";
 
-                    $premium->members()->create([
+                    $member = $premium->members()->create([
                             "number" => $premium->number . str_pad($m, 2, "0", STR_PAD_LEFT),
                             "name" => $faker->name(strtolower($gender)),
                             "gender" => $gender,
@@ -39,6 +45,11 @@ class SamplePremiumMember extends Seeder
                             "contact" =>  $faker->tollFreePhoneNumber,
                             "address" =>  $faker->address,
                     ]);
+
+                    if ($premium->verified_at && rand(0,9) > 3) {
+                        $member->verified_at = now();
+                        $member->save();
+                    }
                 }
             }
         }

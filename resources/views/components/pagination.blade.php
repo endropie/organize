@@ -2,7 +2,7 @@
     <div class="flex justify-between flex-1 sm:hidden">
       <a
         @if($navigation['previous'])
-        href="{{route('members.index')}}?page={{$navigation['previous']}}"
+        href="{{Request::url()}}?page={{$navigation['previous']}}"
         @else
         style="background-color: #ccc; cursor: auto; pointer-events: none;"
         @endif
@@ -11,7 +11,7 @@
       </a>
       <a
         @if($navigation['next'])
-        href="{{route('members.index')}}?page={{$navigation['next']}}"
+        href="{{Request::url()}}?page={{$navigation['next']}}"
         @else
         style="background-color: #ccc; cursor: auto; pointer-events: none;"
         @endif
@@ -35,7 +35,7 @@
         <nav class="relative z-0 inline-flex -space-x-px shadow-sm" aria-label="Pagination">
             <a
                 @if($navigation['first'])
-                href="{{route('members.index')}}?page={{$navigation['first']}}"
+                href="{{Request::url()}}?page={{$navigation['first']}}"
                 @else
                 style="background-color: #ccc; cursor: auto; pointer-events: none;"
                 @endif
@@ -48,7 +48,7 @@
             </a>
             <a
                 @if($navigation['previous'])
-                href="{{route('members.index')}}?page={{$navigation['previous']}}"
+                href="{{Request::url()}}?page={{$navigation['previous']}}"
                 @else
                 style="background-color: #ccc; cursor: auto; pointer-events: none;"
                 @endif
@@ -67,7 +67,7 @@
             </span>
             <a
                 @if($navigation['next'])
-                href="{{route('members.index')}}?page={{$navigation['next']}}"
+                href="{{Request::url()}}?page={{$navigation['next']}}"
                 @else
                 style="background-color: #ccc; cursor: auto; pointer-events: none;"
                 @endif
@@ -79,7 +79,7 @@
             </a>
             <a
                 @if($navigation['last'])
-                href="{{route('members.index')}}?page={{$navigation['last']}}"
+                href="{{Request::url()}}?page={{$navigation['last']}}"
                 @else
                 style="background-color: #ccc; cursor: auto; pointer-events: none;"
                 @endif

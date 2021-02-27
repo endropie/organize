@@ -1,3 +1,8 @@
+
+{{-- @section('title', 'Halaman resmi IK2T - KP Tanjuang') --}}
+{{-- @section('description', 'Halaman resmi IK2T Kampuang tanjuang, IV koto Aur Malintang. kab Padang pariaman.') --}}
+{{-- @section('keywords', 'sharing, sharing text, text, sharing photo, photo,') --}}
+
 @push('styles')
 {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"> --}}
 <style>

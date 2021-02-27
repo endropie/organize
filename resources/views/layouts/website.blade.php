@@ -2,11 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <title>{{ config('app.name', 'Laravel') }} - @yield('title', 'Halaman resmi organisasi Ikatan Keluarga Kampuang Tanjuang')</title>
+        <meta name="description" content="@yield('description', 'Halaman resmi IK2T Kampuang tanjuang, IV koto Aur Malintang. kab Padang pariaman.')">
+        <meta name="keywords" content="@yield('keywords', 'Ikatan Keluarga Kampuang Tanjuang IK2T IKAKO AMAL PKDP Padang Pariaman Aurmalintang')">
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -19,8 +21,9 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         @stack('scripts')
+        @livewireScripts
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-gray-100">
 
         <!-- Page Heading -->
         @if (!empty($header))
@@ -28,9 +31,6 @@
         @else
         @include('layouts.website-navigation')
         @endif
-
-        {{-- Page Message --}}
-        <livewire:notify />
 
         <!-- Page Content -->
         <main class="min-h-screen">
@@ -44,7 +44,13 @@
                 <a class="text-gray-500 no-underline hover:no-underline" href="#">Powered by Hendro Wibowo</a>
             </div>
         </footer>
+        {{-- App Livewire Component  --}}
+        <livewire:app-notify />
+        {{-- <livewire:app-modal /> --}}
 
-        @livewireScripts
+
+        {{-- Modals --}}
+
+        @stack('modals')
     </body>
 </html>

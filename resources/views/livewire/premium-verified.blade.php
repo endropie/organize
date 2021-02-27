@@ -3,7 +3,7 @@
     <span class="inline-flex px-4 py-1 text-sm font-semibold leading-5 text-yellow-800 bg-yellow-100 rounded-full">
         Menunggu verifikasi KK
     </span>
-    @if(Auth::user() && (Auth::user()->allow('member-manager') || Auth::user()->allowRegion('member-region',$premium->region)))
+    @if(Auth::user() && Auth::user()->allow('member-region', 'member-manager'))
     <button wire:click="setVerified" class="px-4 py-1 text-white bg-green-600 rounded hover:bg-green-400 focus:bg-green-400 focus:outline-none" >Verifikasi</button>
     @endif
     @elseif ($premium->unverified)

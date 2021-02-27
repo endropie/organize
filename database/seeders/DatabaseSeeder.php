@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CountriesTable::class,
+            LedgersTable::class,
+            TransactionsTable::class,
             SamplePremiumMember::class,
         ]);
 
@@ -26,9 +28,7 @@ class DatabaseSeeder extends Seeder
             'name' => "Administarator",
             'email' => "admin@". env('APP_DOMAIN', 'laravel.dev'),
             'password' => bcrypt(env('APP_DOMAIN', 'laravel.dev')),
-            'ability' => [
-                'roles' =>  ['*']
-            ]
+            'ability' => ['*']
         ]);
 
         User::updateOrCreate([ 'email' => "demo@". env('APP_DOMAIN', 'laravel.dev') ], [
@@ -40,30 +40,13 @@ class DatabaseSeeder extends Seeder
         if(env('APP_ENV') == "local")
         {
             foreach (User::$ROLES as $role) {
-                if ($role == 'member-region') {
-                    foreach (\App\Models\Region::get() as $region) {
-                        $user = $this->createMemberRegionRule($role."-".$region->id);
-                        $user->update(['ability->roles' => [$role]]);
-                        $user->update(['ability->regions' => [$region->id]]);
-                    }
-                }
-                else {
-                    $user = $this->createMemberRegionRule($role);
-                    $user->update(['ability->roles' => [$role]]);
-                }
+                $user = User::updateOrCreate(['email' => strtolower($role) ."@". env('APP_DOMAIN', 'laravel.dev'),],[
+                    'name' => ucfirst(str_replace("-", " ", $role)),
+                    'email' => strtolower($role) ."@". env('APP_DOMAIN', 'laravel.dev'),
+                    'password' => bcrypt(strtolower($role)),
+                    'ability' => [$role]
+                ]);
             }
         }
-
-
-    }
-
-    public function createMemberRegionRule ($role)
-    {
-        return User::updateOrCreate(['email' => strtolower($role) ."@". env('APP_DOMAIN', 'laravel.dev'),],[
-            'name' => ucfirst(str_replace("-", " ", $role)),
-            'email' => strtolower($role) ."@". env('APP_DOMAIN', 'laravel.dev'),
-            'password' => bcrypt(strtolower($role)),
-            // 'ability' => ['roles' => [$role]]
-        ]);
     }
 }

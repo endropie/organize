@@ -11,17 +11,18 @@ class CreateRegionsTable extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('code',2)->unique();
             $table->string('name');
         });
 
-        Region::create(['name' => 'Jabodetabek']);
-        Region::create(['name' => 'Bandung']);
-        Region::create(['name' => 'Surabaya']);
-        Region::create(['name' => 'Kalimantan']);
-        Region::create(['name' => 'Pekanbaru']);
-        Region::create(['name' => 'Batam']);
-        Region::create(['name' => 'Malaysia']);
-        Region::create(['name' => 'Ranah']);
+        Region::create(['code' => '01', 'name' => 'Jabodetabek']);
+        Region::create(['code' => '02', 'name' => 'Bandung']);
+        Region::create(['code' => '03', 'name' => 'Surabaya']);
+        Region::create(['code' => '04', 'name' => 'Kalimantan']);
+        Region::create(['code' => '05', 'name' => 'Pekanbaru']);
+        Region::create(['code' => '06', 'name' => 'Batam']);
+        Region::create(['code' => '07', 'name' => 'Malaysia']);
+        Region::create(['code' => '08', 'name' => 'Ranah']);
     }
 
     public function down()

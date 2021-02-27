@@ -20,7 +20,7 @@ class MemberRegister extends Component
 
     public $premium = null;
 
-    public $photo_member, $photo_premium;
+    public $photo_member;
 
     public $record = [
         'premium' => [
@@ -50,7 +50,6 @@ class MemberRegister extends Component
         'record.contact' => 'No. Kontak',
         'record.relate' => 'Jenis Keangotaan',
         'photo_member' => 'Photo KTP',
-        'photo_premium' => 'Photo KK',
     ];
 
     public function mount()
@@ -100,11 +99,10 @@ class MemberRegister extends Component
             'record.gender' => 'required',
             'record.birth_place' => 'required',
             'record.birth_date' => 'required',
-            'record.contact' => "unique:App\Models\Member,contact" . ($this->additional ? '' : 'required'),
+            'record.contact' => "unique:App\Models\Member,contact|" . ($this->additional ? '' : 'required'),
             'record.contact_code' => ($this->additional ? '' : '|required'),
             'record.relate' => 'required',
             'photo_member' => 'required',
-            'photo_premium' => ($this->additional ? '' : 'required'),
         ];
     }
 
@@ -125,13 +123,6 @@ class MemberRegister extends Component
             $this->saveImage($this->photo_member, 'public/register/members', $name);
             $member->capture_name = $name;
             $member->save();
-        }
-        if ($this->photo_premium)
-        {
-            $name = $premium->number ."-". now()->format('YmdHisu') .".". $this->photo_premium->extension();
-            $this->saveImage($this->photo_premium, 'public/register/premiums', $name);
-            $premium->capture_name = $name;
-            $premium->save();
         }
 
 
