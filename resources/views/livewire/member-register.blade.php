@@ -16,10 +16,18 @@
                     @if($premium) <span class="text-green-700">[Terdaftar]</span> @endif
                 </label>
                 <div>
-                    <input wire:model="record.premium.number" wire:change="changedPremium"
-                        @if($additional) disabled style="color:#777" @endif
-                        class="w-full px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md focus:outline-none focus:border-blue-500" placeholder="00000-000000-0000" type="text"
+                    @if($additional)
+                    <input value="{{ $premium->number_view }}"
+                        disabled style="color:#777"
+                        placeholder="00000-000000-0000" type="number"
+                        class="w-full px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md focus:outline-none focus:border-blue-500"
                     />
+                    @else
+                    <input wire:model="record.premium.number" wire:change="changedPremium"
+                        placeholder="00000-000000-0000" type="number"
+                        class="w-full px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md no-spin focus:outline-none focus:border-blue-500"
+                    />
+                    @endif
                 </div>
                 @error('record.premium.number')
                 <div class="ml-1 -mt-1 text-sm font-thin text-red-500">
@@ -51,7 +59,10 @@
         <div class="mb-3">
             <label class="mb-2 ml-1 text-sm font-bold">No. NIK</label>
             <div>
-                <input wire:model="record.number" title="NIK" class="w-full px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md focus:outline-none focus:border-blue-500" placeholder="00000-000000-0000" type="text"/>
+                <input wire:model="record.number" title="NIK"
+                    placeholder="00000-000000-0000" type="number"
+                    class="w-full px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md focus:outline-none focus:border-blue-500"
+                />
             </div>
             @error('record.number')
             <div class="ml-1 -mt-1 text-sm font-thin text-red-500">
@@ -136,7 +147,7 @@
                     <option value="{{$code->phonecode}}">{{$code->phonecode}} <span class="hidden md:block"></span> </option>
                     @endforeach
                 </select>
-                <input wire:model="record.contact" class="flex-grow px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md rounded-l-none focus:outline-none focus:border-blue-500" placeholder="08XX XXXX XXXX" type="text"/>
+                <input wire:model="record.contact" class="flex-grow px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md rounded-l-none focus:outline-none focus:border-blue-500" placeholder="08XX XXXX XXXX" type="number"/>
             </div>
             @if($errors->first('record.contact') || $errors->first('record.contact_code'))
             <div class="ml-1 -mt-1 text-sm font-thin text-red-500">

@@ -15,6 +15,16 @@
         <!-- Styles -->
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <style>
+            input.no-spin::-webkit-outer-spin-button,
+            input.no-spin::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            input[type=number].no-spin {
+                -moz-appearance:textfield;
+            }
+        </style>
         @livewireStyles
         @stack('styles')
 
