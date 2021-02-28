@@ -18,17 +18,17 @@
                 <livewire:premium-verified :premium="$premium" />
             </div>
         </div>
-        <div class="flex flex-row text-gray-600 uppercase divide-x divide-white">
+        <div class="flex flex-row text-gray-600 uppercase">
             <button
                 x-bind:class="{'bg-gray-400 text-white': tab !== 'members', 'cursor-default': tab === 'members'}"
                 x-on:click="tab = 'members'"
-                class="flex-grow py-2 font-light text-center border border-gray-400 focus:outline-none">
+                class="flex-grow py-2 font-light text-center uppercase border-2 border-gray-400 focus:outline-none">
                 Anggota
             </button>
             <button
                 x-bind:class="{'bg-gray-400 text-white': tab !== 'premiables', 'cursor-default': tab === 'premiables'}"
                 x-on:click="tab = 'premiables'"
-                class="flex-grow py-2 font-light text-center border border-gray-400 focus:outline-none">
+                class="flex-grow py-2 font-light text-center uppercase border-2 border-gray-400 focus:outline-none">
                 Iuran Wajib
             </button>
         </div>
@@ -142,8 +142,8 @@
                     </tr>
                 </tbody>
             </table>
-            <div x-show="tab === 'premiables'" class="h-40">
-
+            <div x-show="tab === 'premiables'">
+                <livewire:premiables :premium="$premium">
             </div>
             <div x-show="tab === 'others'" class="h-40">
 

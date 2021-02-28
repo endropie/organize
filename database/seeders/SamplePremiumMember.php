@@ -1,7 +1,6 @@
 <?php
 namespace Database\Seeders;
 
-use App\Models\Member;
 use App\Models\Premium;
 use App\Models\Region;
 use Illuminate\Database\Seeder;
@@ -28,7 +27,7 @@ class SamplePremiumMember extends Seeder
                 ]);
 
                 if (rand(0,9) > 3) {
-                    $premium->verified_at = now();
+                    $premium->verified_at = \Carbon\Carbon::create(2020, rand(1,12), rand(1,25));
                     $premium->save();
                 }
 

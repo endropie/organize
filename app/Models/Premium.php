@@ -42,21 +42,23 @@ class Premium extends Model
         return $this->belongsTo(\App\Models\Region::class);
     }
 
-    public function getPremiPeriodNext($count = null)
+    public function getPremiPeriodstart()
     {
-        $period = null;
-        if (!$this->premiables->count()) {
 
             ## Start at verified month
             // return $this->verified_at->firstOfMonth();
             ## Start at next verified month
-            $period = $this->verified_at->addMonth()->firstOfMonth();
+            return $this->verified_at->addMonth()->firstOfMonth();
             ## Start at 2021
             // return \Carbon\Carbon::create(2021, 1, 1);
-        }
-        else {
-            $period = $this->premiables->orderDesc('period')->first()->period->addMonth()->firstOfMonth();
-        }
+    }
+
+    public function getPremiPeriodNext($count = null)
+    {
+        $period = null;
+        $period = $this->premiables->count()
+            ? $this->premiables->sortByDesc('period')->first()->period->addMonth()->firstOfMonth()
+            : $this->getPremiPeriodstart();
 
         if (!$count) return (string) $period;
 
@@ -65,12 +67,6 @@ class Premium extends Model
 
         return $periods;
     }
-
-    public function getPremiPeriod()
-    {
-
-    }
-
 
 
     protected function getUnverifiedAttribute()
