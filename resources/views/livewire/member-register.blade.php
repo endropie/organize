@@ -61,7 +61,7 @@
             <div>
                 <input wire:model="record.number" title="NIK"
                     placeholder="00000-000000-0000" type="number"
-                    class="w-full px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md focus:outline-none focus:border-blue-500"
+                    class="w-full px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md no-spin focus:outline-none focus:border-blue-500"
                 />
             </div>
             @error('record.number')
@@ -147,7 +147,7 @@
                     <option value="{{$code->phonecode}}">{{$code->phonecode}} <span class="hidden md:block"></span> </option>
                     @endforeach
                 </select>
-                <input wire:model="record.contact" class="flex-grow px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md rounded-l-none focus:outline-none focus:border-blue-500" placeholder="08XX XXXX XXXX" type="number"/>
+                <input wire:model="record.contact" class="flex-grow px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md rounded-l-none no-spin focus:outline-none focus:border-blue-500" placeholder="08XX XXXX XXXX" type="number"/>
             </div>
             @if($errors->first('record.contact') || $errors->first('record.contact_code'))
             <div class="ml-1 -mt-1 text-sm font-thin text-red-500">
@@ -195,24 +195,36 @@
                 {{$errors->first('photo_member')}}
             </div>
             @enderror
-            <div onclick="document.getElementById('photo_member').click()"
-                class="flex justify-center px-6 pt-5 pb-6 mt-2 border-2 border-gray-100 border-dashed rounded-md cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 focus-within:border-transparent" >
+            <div class="relative">
 
-                @if ($photo_member)
-                <img src="{{$photo_member->temporaryUrl()}}" class="cover" />
-                @endif
-                <div class="space-y-1 text-center" @if ($photo_member) style="display:none" @endif>
-                    <svg class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <div class="flex text-sm text-gray-600">
-                        <label for="photo_member" class="relative font-medium cursor-pointer focus-within:outline-none">
-                            <span>AMBIL GAMBAR KK</span>
-                            <input type="file" id="photo_member" wire:model="photo_member" class="sr-only" accept="image/*;capture=camera">
-                        </label>
-                        {{-- <p class="pl-1">or drag and drop</p> --}}
+                <div onclick="document.getElementById('photo_member').click()"
+                    class="flex justify-center px-6 pt-5 pb-6 mt-2 border-2 border-gray-100 border-dashed rounded-md cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 focus-within:border-transparent"
+                >
+
+                    @if ($photo_member)
+                    <img src="{{$photo_member->temporaryUrl()}}" class="cover" />
+                    @endif
+                    <div class="space-y-1 text-center" @if ($photo_member) style="display:none" @endif>
+                        <svg class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="flex text-sm text-gray-600">
+                            <label for="photo_member" class="relative font-medium cursor-pointer focus-within:outline-none">
+                                <span>AMBIL GAMBAR KK</span>
+                                <input type="file" id="photo_member" wire:model="photo_member" class="sr-only" accept="image/*;capture=camera">
+                            </label>
+                            {{-- <p class="pl-1">or drag and drop</p> --}}
+                        </div>
+                        <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
-                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                </div>
+                <div class="absolute top-0 items-center w-full h-full p-1 " wire:loading wire:target="photo_member">
+                    <div class="flex flex-col items-center justify-center w-full h-full text-gray-600 bg-gray-400 rounded bg-opacity-90">
+                        <span class="uppercase text-bold">loading..</span>
+                        <svg class="w-12 h-12 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
