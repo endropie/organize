@@ -44,6 +44,7 @@ class Premium extends Model
 
     public function getPremiPeriodstart()
     {
+        if (!$this->verified_at) return null;
 
             ## Start at verified month
             // return $this->verified_at->firstOfMonth();
