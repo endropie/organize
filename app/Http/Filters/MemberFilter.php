@@ -13,4 +13,17 @@ class MemberFilter extends Filter
         $this->request = $request;
         parent::__construct($request);
     }
+
+    public function search($value = '') {
+        return $this->searchModel($value, function ($query, $fields, $keyword) {
+            foreach ($fields as $field) {
+                $query->orWhere($field, 'like', '%'.$keyword.'%');
+            }
+
+            $query->orWhereHas('premium', function ($q) use ($keyword){
+                $q->where('number', 'LIKE', '%'. $keyword .'%')
+                  ->orWhere('code', 'LIKE', '%'. $keyword .'%');
+            });
+          });
+    }
 }

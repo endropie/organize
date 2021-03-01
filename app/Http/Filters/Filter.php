@@ -112,6 +112,14 @@ class Filter
     }
 
     public function search($value = '') {
+        return $this->searchModel($value, function ($query, $fields, $keyword) {
+            foreach ($fields as $field) {
+                $query->orWhere($field, 'like', '%'.$keyword.'%');
+            }
+          });
+    }
+
+    public function searchModel($value, $function) {
         if(!strlen($value)) return $this->builder;
 
         $tableName = $this->builder->getQuery()->from;
@@ -123,14 +131,10 @@ class Filter
         $separator = substr_count($value, '|') > 0 ? '|' : ' ';
         $keywords = explode($separator, $value);
 
-        return $this->builder->where(function ($query) use ($fields, $keywords) {
+        return $this->builder->where(function ($query) use ($fields, $keywords, $function) {
             foreach ($keywords as $keyword) {
                 if(strlen($keyword)) {
-                  $query->where(function ($query) use ($fields, $keyword) {
-                    foreach ($fields as $field) {
-                        $query->orWhere($field, 'like', '%'.$keyword.'%');
-                    }
-                  });
+                  $query->where($function($query, $fields, $keyword));
                 }
             }
         });

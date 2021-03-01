@@ -4,8 +4,13 @@
 <x-website-layout>
     <div class="max-w-screen-lg px-2 pt-2 m-auto md:pt-8">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-            <div class="flex flex-row px-4 py-5 sm:px-6">
-                <div class="flex-grow">
+            <div class="relative flex flex-col px-4 py-5 md:flex-row sm:px-6 md:pr-32">
+                <div class="absolute right-0 mr-2">
+                    <a href="{{route('members.register')}}" class="px-4 py-2 text-blue-100 bg-blue-700 rounded focus:outline-none focus:bg-blue-400 hover:bg-blue-400">
+                        Daftar
+                    </a>
+                </div>
+                <div class="flex-none">
                     <h3 class="text-lg font-medium leading-6 text-gray-900 uppercase">
                         IK2T Anggota
                     </h3>
@@ -13,10 +18,12 @@
                         Data Personal anggota.
                     </p>
                 </div>
-                <div>
-                    <a href="{{route('members.register')}}" class="px-4 py-2 text-blue-100 bg-blue-700 rounded focus:outline-none focus:bg-blue-400 hover:bg-blue-400">
-                        Daftar
-                    </a>
+                <div class="flex-grow md:pl-10">
+                    <form >
+                        <input type="text" name="search" placeholder="Cari.." value="{{ request('search', '') }}"
+                            class="w-full px-2 py-1 text-sm rounded md:text-lg focus:outline-none"
+                        >
+                    </form>
                 </div>
             </div>
             <div class="flex flex-col">
@@ -57,10 +64,10 @@
                         >
                             <td colspan="100%" style="border: none">
                                 <div class="my-1 border-gray-200 rounded shadow-md">
-                                    <dl>
-                                        <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                            <dt class="flex flex-row text-sm font-medium text-gray-900">
-                                                NIK {{$member->number_view}}
+                                    <dl class="py-1">
+                                        <div class="px-4 pb-0.5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <dt class="flex flex-row text-sm font-medium text-gray-500">
+                                                ID {{$member->premium->code}}
                                                 <span class="flex-grow"></span>
                                                 @if ($member->verified_at)
                                                 <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
@@ -73,10 +80,10 @@
                                                 @endif
                                             </dt>
                                             <dd class="-mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                ID {{$member->premium->code}}
+                                                NIK {{$member->number_view}}
                                             </dd>
                                         </div>
-                                        <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <div class="px-4 pb-0.5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                             <dt class="text-sm font-medium text-gray-500">
                                                 Nama Lengkap
                                             </dt>
@@ -84,7 +91,7 @@
                                                 {{$member->name}} ({{$member->age}})
                                             </dd>
                                         </div>
-                                        <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <div class="px-4 pb-0.5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                             <dt class="text-sm font-medium text-gray-500">
                                                 Kontak
                                             </dt>
@@ -92,7 +99,7 @@
                                                 {{$member->contact_view}}
                                             </dd>
                                         </div>
-                                        <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <div class="px-4 pb-0.5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                             <dt class="text-sm font-medium text-gray-500">
                                                 Regional
                                             </dt>
@@ -100,7 +107,7 @@
                                                 {{$member->premium->region->name}}
                                             </dd>
                                         </div>
-                                        <div class="px-4 py-1 text-center">
+                                        <div class="px-4 pb-0.5 text-center">
 
                                         </div>
                                     </dl>
