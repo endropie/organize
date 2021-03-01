@@ -165,7 +165,7 @@ class MemberRegister extends Component
         return view('livewire.member-register', [
             'region_options' => Region::get(),
             'relate_options' => Member::$RELATES,
-            'phone_codes' => Country::get()
+            'phone_codes' => Country::orderBy('phonecode')->get()
         ]);
     }
 }
