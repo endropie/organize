@@ -100,24 +100,15 @@
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <ul class="border border-gray-200 divide-y divide-gray-200 rounded-md">
-                        <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                            <div class="flex items-center flex-1 w-0">
-                                @if($member->capture_name)
-                                <img  alt="" class="cover" src="{{ url('storage/register/members/'. $member->capture_name) }}">
-                                @else
-                                NO -IMAGE
-                                @endif
-                            </div>
-                        </li>
-                        <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                            <div class="flex items-center flex-1 w-0">
-                                @if($member->premium->capture_name)
-                                <img  alt="" class="cover" src="{{ url('storage/register/premiums/'. $member->premium->capture_name) }}">
-                                @else
-                                NO -IMAGE
-                                @endif
-                            </div>
-                        </li>
+                            <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                                <div class="flex items-center flex-1 w-0">
+                                    @if($member->capture_name)
+                                    <img  alt="" class="cover" src="{{ url('storage/register/members/'. $member->capture_name) }}">
+                                    @else
+                                    NO -IMAGE
+                                    @endif
+                                </div>
+                            </li>
                         </ul>
                     </dd>
                 </div>
