@@ -1,3 +1,6 @@
+@section('title', 'Transaksi Keuangan IK2T - KP Tanjuang')
+@section('description', 'Transaksi Keuangan IK2T Kampuang tanjuang, IV koto Aur Malintang. kab Padang pariaman.')
+
 <x-website-layout>
     <div class="max-w-screen-xl px-2 pt-2 m-auto md:pt-8">
         <div class="flex flex-col flex-auto w-full overflow-hidden bg-white rounded shadow-md">

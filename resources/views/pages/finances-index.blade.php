@@ -1,3 +1,6 @@
+@section('title', 'Keuangan IK2T - KP Tanjuang')
+@section('description', 'Keuangan IK2T Kampuang tanjuang, IV koto Aur Malintang. kab Padang pariaman.')
+
 <x-website-layout>
     <div class="max-w-screen-xl px-2 mx-auto mt-5 md:mt-10">
         <div class="flex flex-col flex-auto">
