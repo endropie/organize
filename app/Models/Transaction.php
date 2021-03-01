@@ -53,7 +53,7 @@ class Transaction extends Model
 
     public function premiate ()
     {
-        $this->premiables()->delete();
+        $this->unpremiate();
 
         if ($this->type == 'PREMIUM' && !empty($this->variability['items'])) {
             foreach ($this->variability['items'] as $item) {
@@ -71,6 +71,18 @@ class Transaction extends Model
         }
 
         return $this->premiables->fresh();
+    }
+
+    public function unpremiate ()
+    {
+        $this->premiables->sortByDesc('period')->groupBy('premium_id')->map(function ($premia) {
+            foreach ($premia as $premiable) {
+                Premiable::where('premium_id', $premiable->premium_id)
+                ->where('period', '>', $premiable->period)
+                ->update(['period' => \DB::raw(' DATE_ADD(`period`, INTERVAL -1 MONTH) ')]);
+                $premiable->delete();
+            }
+        });
     }
 
     public function amountate ()

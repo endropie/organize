@@ -143,7 +143,7 @@ class TransactionForm extends Component
         {
             \DB::beginTransaction();
             $trx->amountables()->delete();
-            $trx->premiables()->delete();
+            $trx->unpremiate();
             $trx->delete();
             \DB::commit();
 
@@ -241,7 +241,7 @@ class TransactionForm extends Component
             'income_ledgers' => \App\Models\Ledger::where('isgroup', 0)->where('type', 'INCOME')->get(),
             'expense_ledgers' => \App\Models\Ledger::where('isgroup', 0)->where('type', 'EXPENSE')->get(),
             'asset_ledgers' => \App\Models\Ledger::where('isgroup', 0)->where('type', 'ASSET')->get(),
-            'types' => ['GENERAL' => 'Umum', 'INCOME' => 'Pemasukan', 'EXPENSE' => 'Pengeluaran', 'PREMIUM' => 'Premi'],
+            'types' => ['GENERAL' => 'Umum', 'INCOME' => 'Pemasukan', 'EXPENSE' => 'Pengeluaran', 'PREMIUM' => 'Donasi Sosial'],
         ]);
     }
 }
