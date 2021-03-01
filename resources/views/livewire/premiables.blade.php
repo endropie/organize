@@ -12,7 +12,7 @@
                 <div class="flex items-center justify-center w-1/12 px-2 text-sm text-green-700 bg-green-300">
                     {{ Carbon\Carbon::create($year, $month, 1)->shortMonthName }}
                 </div>
-                @elseif(now() > Carbon\Carbon::create($year, $month, 1) && $premium->getPremiPeriodstart() <= Carbon\Carbon::create($year, $month, 0))
+                @elseif($premium->verified_at && now() > Carbon\Carbon::create($year, $month, 1) && $premium->getPremiPeriodstart() <= Carbon\Carbon::create($year, $month, 0))
                 <div class="flex items-center justify-center w-1/12 px-2 text-sm text-center text-red-700 bg-red-300">
                     {{ Carbon\Carbon::create($year, $month, 1)->shortMonthName }}
                 </div>
