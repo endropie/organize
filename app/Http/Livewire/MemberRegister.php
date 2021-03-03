@@ -91,6 +91,8 @@ class MemberRegister extends Component
     protected function rules ()
     {
 
+        $age = \Carbon\Carbon::parse($this->record['birth_date'])->age;
+
         return [
             'record.premium.number' => 'required',
             'record.premium.region_id' => 'required',
@@ -102,7 +104,7 @@ class MemberRegister extends Component
             'record.contact' => "unique:App\Models\Member,contact|" . ($this->additional ? '' : 'required'),
             'record.contact_code' => ($this->additional ? '' : '|required'),
             'record.relate' => 'required',
-            'photo_member' => 'required',
+            'photo_member' => ($age < 20 ? '' : 'required'),
         ];
     }
 

@@ -19,7 +19,7 @@
                     @if($additional)
                     <input value="{{ $premium->number_view }}"
                         disabled style="color:#777"
-                        placeholder="{{ $premium->number_view }}" type="number"
+                        placeholder="{{ $premium->number_view }}"
                         class="w-full px-3 py-2 mb-1 transition-colors border-2 border-gray-200 rounded-md focus:outline-none focus:border-blue-500"
                     />
                     @else

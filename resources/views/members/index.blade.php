@@ -4,8 +4,8 @@
 <x-website-layout>
     <div class="max-w-screen-lg px-2 pt-2 m-auto md:pt-8">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-            <div class="relative flex flex-col px-4 py-5 md:flex-row sm:px-6 md:pr-32">
-                <div class="absolute right-0 mr-2">
+            <div class="relative flex flex-col gap-2 px-4 py-5 md:flex-row sm:px-6 md:pr-32">
+                <div class="absolute right-0 mt-1.5 mr-2">
                     <a href="{{route('members.register')}}" class="px-4 py-2 text-blue-100 bg-blue-700 rounded focus:outline-none focus:bg-blue-400 hover:bg-blue-400">
                         Daftar
                     </a>
