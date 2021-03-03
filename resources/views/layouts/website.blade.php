@@ -9,7 +9,13 @@
         <title>{{ config('app.name', 'Laravel') }} - @yield('title', 'Halaman resmi organisasi Ikatan Keluarga Kampuang Tanjuang')</title>
         <meta name="description" content="@yield('description', 'Halaman resmi IK2T Kampuang tanjuang, IV koto Aur Malintang. kab Padang pariaman.')">
         <meta name="keywords" content="@yield('keywords', 'Ikatan Keluarga Kampuang Tanjuang IK2T IKAKO AMAL PKDP Padang Pariaman Aurmalintang')">
+
+		<meta property="og:title" content="@yield('title', 'Halaman resmi organisasi Ikatan Keluarga Kampuang Tanjuang')">
+		<meta property="og:description" content="@yield('description', 'Halaman resmi IK2T Kampuang tanjuang, IV koto Aur Malintang. kab Padang pariaman.')">
+		<meta property="og:site_name" content="IK2T-AMAL">
+		<meta property="og:image" content="/image-ik2t.png">
         <!-- Fonts -->
+        <link rel="shortcut icon" href="/favicon-ik2t.ico" type="image/x-icon">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
